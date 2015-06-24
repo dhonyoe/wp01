@@ -3,13 +3,47 @@ get_header();
 ?>
 
 
-<?php if (have_posts()) {
+<?php if (have_posts()) { ?>
 
-	// Start the loop.
-	while (have_posts()) {
+	<?php
+	if (is_home() && !is_front_page()) {
 		the_post();
 		the_content();
+	} else {
+		// Start the loop.
+		while (have_posts()) {
+			the_post();
+			$data = get_post_meta(get_the_ID());
+			$bg = '';
+			if(isset($data['primary-bg']) && !empty($data['primary-bg'][0])) {
+				$bg = 'bg-primary';
+			}
+			?>
+			<section class="<?php echo $bg; ?>">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-center">
+							<h2 class="section-heading">
+								<?php
+								the_title();
+								?>
+							</h2>
+							<hr class="primary">
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<?php
+						the_content();
+						?>
+					</div>
+				</div>
+			</section>
+
+			<?php
 		// End the loop.
+		}
 	}
 
 	// Previous/next page navigation.
@@ -23,19 +57,7 @@ get_header();
 }
 ?>
 
-<section class="bg-primary" id="about">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2 text-center">
-				<h2 class="section-heading">We've got what you need!</h2>
-				<hr class="light">
-				<p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
-				<a href="#" class="btn btn-default btn-xl">Get Started!</a>
-			</div>
-		</div>
-	</div>
-</section>
-
+<!--
 <section id="services">
 	<div class="container">
 		<div class="row">
@@ -78,6 +100,7 @@ get_header();
 		</div>
 	</div>
 </section>
+
 
 <section class="no-padding" id="portfolio">
 	<div class="container-fluid">
@@ -176,6 +199,14 @@ get_header();
 	</div>
 </section>
 
+<aside class="bg-dark">
+	<div class="container text-center">
+		<div class="call-to-action">
+			<h2>Free Download at Start Bootstrap!</h2>
+			<a href="#" class="btn btn-default btn-xl wow tada">Download Now!</a>
+		</div>
+	</div>
+</aside>
 
 <section id="contact">
 	<div class="container">
@@ -196,6 +227,7 @@ get_header();
 		</div>
 	</div>
 </section>
+-->
 
 <!-- jQuery -->
 <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/jquery.js"></script>
