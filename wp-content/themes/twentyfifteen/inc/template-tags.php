@@ -143,7 +143,7 @@ function twentyfifteen_entry_meta() {
 	);
 	$_number =  get_comments_number();
 	$new_number = str_replace($_number_roman, $_number_tibet, $_number);
-	echo $new_number;
+	//echo $new_number;
 	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
 		echo '<span class="comments-link">';
 		comments_popup_link( __( 'Leave a comment', 'twentyfifteen' ), __( '1 Comment', 'twentyfifteen' ), __( '% Comments', 'twentyfifteen' ) );

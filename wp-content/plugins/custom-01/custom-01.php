@@ -26,6 +26,7 @@ class change_date {
 		register_activation_hook(CD, array('change_date', 'install'));
 		register_deactivation_hook(CD, array('change_date', 'uninstall'));
 		add_filter('the_content', array('change_date', 'update_post'));
+		//add_filter('the_year', array('change_date', 'update_post'));
 	}
 
 	// Add option in wp-options table
@@ -46,8 +47,24 @@ class change_date {
 		$_number_tibet = array(
 			'༠', '༡', '༢', '༣', '༤', '༥', '༦', '༧', '༨', '༩',
 		);
+
+		$title = get_the_title();
+		$id = get_the_ID();
+		$link = get_post_permalink();
+		
+		$time = get_the_time();
+		$new_time = str_replace($_number_roman, $_number_tibet, $time);
+
+		
+		$_comments = get_comments_number();
+		$_comments = str_replace($_number_roman, $_number_tibet, $_comments);
+		
 		$updated_content = str_replace($_number_roman, $_number_tibet, $content);
-		return $updated_content;
+		//return $updated_content. $_comments;
+		return '<a href="'.$link.'"><b>'.
+				$title.'</b></a>'.
+				$updated_content.'<br />'.
+				$new_time.' | ' .$_comments .'comments';
 	}
 
 }
