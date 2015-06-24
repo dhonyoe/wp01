@@ -91,7 +91,7 @@ class find_html_issues {
 			$array[] = $dom->saveHTML($node);
 		}
 
-		pr($array);
+		//pr($array);
 		//die;
 	}
 
