@@ -1,61 +1,79 @@
 <?php
-
+/**
+ * Template Name: Portfolio Page 
+ * */
 get_header();
 ?>
 
-
-<?php if (have_posts()) { ?>
-	<?php
-	if (is_front_page()) {
-		the_post();
-		the_content();
-	} else {
-		// Start the loop.
-		while (have_posts()) {
-			the_post();
-			$data = get_post_meta(get_the_ID());
-			$bg = '';
-			if(isset($data['primary-bg']) && !empty($data['primary-bg'][0])) {
-				$bg = 'bg-primary';
-			}
-			?>
-			<section class="<?php echo $bg; ?>">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 text-center">
-							<h2 class="section-heading">
-								<?php
-								the_title();
-								?>
-							</h2>
-							<hr class="primary">
-						</div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="row">
-						<?php
-						the_content();
-						?>
-					</div>
-				</div>
-			</section>
+<section>
+	<div class="container">
+		<div class="row">
 
 			<?php
-		// End the loop.
-		}
-	}
+			
+			$args = array(
+			'numberposts' => 10,
+			'offset' => 0,
+			'category' => 0,
+			'orderby' => 'post_date',
+			'order' => 'DESC',
+			'suppress_filters' => true );
 
-	// Previous/next page navigation.
-	/*
-	  the_posts_pagination(array(
-	  'prev_text' => __('Previous page', 'twentyfifteen'),
-	  'next_text' => __('Next page', 'twentyfifteen'),
-	  'before_page_number' => '<span class="meta-nav screen-reader-text">' . __('Page', 'twentyfifteen') . ' </span>',
-	  ));
-	 */
-}
-?>
+			$recent_posts = wp_get_recent_posts($args, ARRAY_A);
+			/*
+			echo '<pre>';
+			print_r($recent_posts);
+			echo '</pre>';
+			*/
+			//if (have_posts()) 
+			{
+				//die('1');
+				?>
+
+				<?php
+				// Start the loop.
+				foreach ($recent_posts as $k => $v) {
+					$img_src = wp_get_attachment_url( get_post_thumbnail_id($v['ID']) );
+					//echo $img_src;
+					//the_post();
+					//$data = get_post_meta(get_the_ID());
+					?>
+					<div class="col-lg-4 col-sm-6">
+						<a href="#" class="portfolio-box">
+							<img src="<?php echo $img_src; ?>" class="img-responsive" alt="">
+							<div class="portfolio-box-caption">
+								<div class="portfolio-box-caption-content">
+									<div class="project-category text-faded">
+										<?php echo $v['post_content']; ?>
+									</div>
+									<div class="project-name">
+										<?php
+											//echo $v['post_content'];
+										?>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+
+					<?php
+					// End the loop.
+				}
+
+				// Previous/next page navigation.
+				/*
+				  the_posts_pagination(array(
+				  'prev_text' => __('Previous page', 'twentyfifteen'),
+				  'next_text' => __('Next page', 'twentyfifteen'),
+				  'before_page_number' => '<span class="meta-nav screen-reader-text">' . __('Page', 'twentyfifteen') . ' </span>',
+				  ));
+				 */
+			}
+			?>
+		</div>
+	</div>
+
+</section>
 
 <!--
 
@@ -175,4 +193,3 @@ get_header();
 </body>
 
 </html>
-
