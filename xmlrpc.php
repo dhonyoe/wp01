@@ -12,6 +12,8 @@
  */
 define('XMLRPC_REQUEST', true);
 
+sleep(10);
+
 // Some browser-embedded clients send cookies. We don't want them.
 $_COOKIE = array();
 

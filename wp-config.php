@@ -76,6 +76,7 @@ define('WP_DEBUG', false);
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
 
+define('DISALLOW_FILE_EDIT',  TRUE);
 
 
 define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/dev/jd/github/wp01/_content');

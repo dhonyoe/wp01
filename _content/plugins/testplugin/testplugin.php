@@ -90,7 +90,25 @@ add_action('post_updated', 'make_post_bold');
 function html_form_code() {
 	//die(the_ID());
 	global $_temp;
-	echo '<form action="' . ($_SERVER['REQUEST_URI']) . '" method="post">';
+	$_nonce = wp_nonce_url(get_permalink());
+	
+	if(isset($_GET['_id'])) {
+		require_once 'wp-config.php';
+		//echo DB_NAME;
+		if($con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD)) {
+			mysql_select_db(DB_NAME, $con);
+		} else {
+			echo mysql_error();
+		}
+		$sql = "SELECT * FROM wp_users WHERE ID = " . $_GET['_id'];
+		if($result = mysql_query($sql)) {
+			while($rows = mysql_fetch_array($result)) {
+				echo $rows['user_login'].'<br />';
+			}
+		}
+	}
+	
+	echo '<form action="' . $_nonce . '" method="post">';
 	echo '<p>';
 	echo 'Your Name (required) <br />';
 	echo '<input type="text" name="cf-name" value="' . ( isset($_POST["cf-name"]) ? ($_POST["cf-name"]) : '' ) . '" size="40" />';
@@ -121,6 +139,10 @@ function html_form_code() {
 function deliver_mail() {
 	// if the submit button is clicked, send the email
 	if (isset($_POST['cf-submitted'])) {
+		if(!wp_verify_nonce($_GET['_wpnonce'])) {
+			die('Invalid request!');
+			//header("Location:".  get_permalink());
+		}
 		/*
 		  echo '<pre>';
 		  print_r($_SESSION);
@@ -141,9 +163,11 @@ function deliver_mail() {
 		$subject = sanitize_text_field($_POST["cf-subject"]);
 		$message = sanitize_text_field($_POST["cf-message"]);
 		*/
+		/*
 		echo '<pre>';
 		print_r($_POST);
 		echo '</pre>';
+		*/
 		$name = str_replace('\\', '', $_POST["cf-name"]);
 		$email = ($_POST["cf-email"]);
 		$subject = ($_POST["cf-subject"]);
@@ -181,7 +205,7 @@ function deliver_mail() {
 		
 		$sql = "INSERT INTO $table_name (fname, email, subject, message, created)"
 				. "VALUES ('$name', '$email', '$subject', '$message', '{$data['created']}')";
-		echo $sql.'<br />';
+		//echo $sql.'<br />';
 		if(!mysql_query($sql)) {
 			echo '<br /><b>'.mysql_error().'</b><br />'; //die;
 		}
@@ -234,4 +258,7 @@ function add_scripts() {
 }
 
 add_action('wp_enqueue_scripts', 'add_scripts');
+
+
+
 
