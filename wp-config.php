@@ -16,7 +16,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wp01');
+define('DB_NAME', 'wp_01');
 
 /** MySQL database username */
 define('DB_USER', 'jd');
@@ -75,6 +75,16 @@ define('WP_DEBUG', false);
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
+
+
+
+define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/dev/jd/github/wp01/_content');
+define('WP_CONTENT_URL', 'http://127.0.0.1/dev/jd/github/wp01/_content');
+
+define('WP_PLUGIN_DIR', $_SERVER['DOCUMENT_ROOT'] . '/dev/jd/github/wp01/_content/plugins');
+define('WP_PLUGIN_URL', 'http://127.0.0.1/dev/jd/github/wp01/_content/plugins');
+define('PLUGINDIR', $_SERVER['DOCUMENT_ROOT'].'/dev/jd/github/wp01/_content/plugins');
+
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');

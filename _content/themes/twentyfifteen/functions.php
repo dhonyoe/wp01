@@ -361,3 +361,14 @@ require get_template_directory() . '/inc/template-tags.php';
  * @since Twenty Fifteen 1.0
  */
 require get_template_directory() . '/inc/customizer.php';
+
+remove_action('wp_head', 'wp_generator');
+
+function remove_js_ver( $src ) {
+    if( strpos( $src, 'ver=' ) )
+        $src = remove_query_arg( 'ver', $src );
+    return $src;
+}
+add_filter ( 'style_loader_src', 'remove_js_ver', 9999);
+
+add_filter('the_generator', '__return_false');
