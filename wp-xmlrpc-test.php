@@ -22,7 +22,7 @@ function get_response($URL, $context) {
 	curl_setopt($curlHandle, CURLOPT_HEADER, false);
 	curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array("Content-Type: text/xml"));
 	curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $context);
-	curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+	//curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
 
 	/* Now execute the CURL, download the URL specified */
 	$response = curl_exec($curlHandle);
@@ -41,12 +41,10 @@ $_obj = (object) array(
 /* Creating the wp.getUsersBlogs request which takes on two parameters
   username and password */
 $request = xmlrpc_encode_request(
-		"wp.newPost", 
+		"wp.getUsersBlogs", 
 		array(
-			$blogid, 
 			$USERNAME, 
 			$PASSWORD,
-			$_obj
 		)
 		);
 

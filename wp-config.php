@@ -86,6 +86,11 @@ define('WP_PLUGIN_DIR', $_SERVER['DOCUMENT_ROOT'] . '/dev/jd/github/wp01/_conten
 define('WP_PLUGIN_URL', 'http://127.0.0.1/dev/jd/github/wp01/_content/plugins');
 define('PLUGINDIR', $_SERVER['DOCUMENT_ROOT'].'/dev/jd/github/wp01/_content/plugins');
 
+define('LOGIN_PAGE', 'secure_login');
+
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+
+// Your panic codes are: 15175274, 57997778, 76266416

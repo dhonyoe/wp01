@@ -1,0 +1,20 @@
+AuthName "Admins Only"
+AuthUserFile /var/www/html/dev/jd/passwd
+AuthType basic
+require user htadmin
+
+<Files admin-ajax.php>
+    Order allow,deny
+    Allow from all
+    Satisfy any 
+</Files>
+
+<LIMIT GET>
+deny from all
+# whitelist Syed's IP address
+allow from 127.0.0.1
+# whitelist Amanda's IP address
+#allow from xx.xx.xx.xxx
+# whitelist Work IP address
+#allow from xx.xx.xx.xxx
+</LIMIT>
