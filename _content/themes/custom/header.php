@@ -12,7 +12,10 @@
 		<title>Creative - Start Bootstrap Theme</title>
 
 		<!-- Bootstrap Core CSS -->
-		<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/bootstrap.min.css" type="text/css">
+		<link 
+			rel="stylesheet" 
+			href="<?php echo esc_url(get_template_directory_uri()); ?>/css/bootstrap.min.css" 
+			type="text/css">
 
 		<!-- Custom Fonts -->
 		<!--
